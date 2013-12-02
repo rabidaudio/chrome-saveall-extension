@@ -4,13 +4,19 @@ chrome-saveall-extension
 Save all open tabs to a timestamped directory.
 
 The code is very much hacked together and surely still has some bugs. Released to
-Public Domain. 
+Public Domain. Do whatever you want with it.
+
+
+Install
+-------
+- Go to <a href="chrome://extensions">chrome://extensions</a>
+- Drag the .crx file into the page
 
 
 Usage
 -----
 
-Just click the download button, and all tabs in the current window will get saved
+Just click the download extension button, and all tabs in the current window will get saved
 to a directory in your Downloads folder. This is basically to save you the effort
 of repeatedly alternating Ctrl-S, Enter, Ctrl-PgDn. After all downloads have
 started, the directory will open in your file browser and the browser will offer
