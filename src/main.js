@@ -5,7 +5,7 @@
    --   Charles Knight 2013
 */
 
-var finished = false;
+var running = false;
 var filepath = null;
 
 function getTimeStamp() {
@@ -26,8 +26,8 @@ function listenAndOpenWhenDone(id){
     chrome.downloads.onChanged.addListener(function(delta) {
         if (!delta.state ||  (delta.state.current != 'complete'))
             return;
-        if(!finished){
-            finished=true;
+        if(running){
+            running=false;
             chrome.downloads.show(id);
             console.log("DownloadTabs - done.");
             filepath = null;
@@ -36,7 +36,8 @@ function listenAndOpenWhenDone(id){
 }
       
 
-function doit(){
+function main(){
+    running = true;
     var q = chrome.tabs.query({ currentWindow: true }, function(result){
         var count = 0;
         for (var i=0; i<result.length; i++){
@@ -56,19 +57,25 @@ function doit(){
     });
 }
 
+
 chrome.downloads.onDeterminingFilename.addListener(function(item, suggest) {
-  //console.log("determining filename listener called--"+item.filename);
+  console.log("download listener cought this - "+item.filename);
   if(!filepath)
     filepath = "TabDownload-"+getTimeStamp()+"/";
   //console.log("suggesting:"+filepath+item.filename);
-  suggest({filename: filepath+item.filename,
-           conflict_action: 'overwrite',
-           conflictAction: 'overwrite'});
+  if(running){
+    console.log('DownloadTabs - Saving to '+filepath+item.filename);
+      suggest({filename: filepath+item.filename,
+               conflict_action: 'overwrite',
+               conflictAction: 'overwrite'});
+   }
 });
+
+
 
 chrome.browserAction.onClicked.addListener(function(tab) {
     console.log('DownloadTabs - Beginning process...');
-    doit();
+    main();
 });
 
 // TODO if filepath is null, set saveas in download command to true. then store

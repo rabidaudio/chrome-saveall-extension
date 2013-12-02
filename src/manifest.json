@@ -1,7 +1,7 @@
 {
   "name": "Download Open Tabs",
   "description": "Automatically save all open tabs in current window to the same directory.",
-  "version": "0.1",
+  "version": "0.2",
   "minimum_chrome_version": "16.0.884",
   "permissions": ["downloads", "<all_urls>", "tabs"],
   "background": {
@@ -12,5 +12,5 @@
     "default_title": "Download all pages",
     "default_icon": "download.png"
   },
-  "manifest_version": 2
+  "manifest_version": 3
 }
